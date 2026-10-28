@@ -47,15 +47,8 @@ ptp-gps-grandmaster-clock/
 ├── configs/
 │   ├── chrony.conf.example
 │   └── ptp4l.conf.example
-├── scripts/
-│   └── parse_ptp_logs.py
-├── tests/
-│   ├── test_parse_ptp_logs.py
-│   └── fixtures/
-│       ├── normal.log
-│       └── malformed.log
-└── results/
-    └── README.md
+└── tests/
+    └── test_parse_ptp_logs.py
 ```
 
 ## Running the Log Analysis Utility
