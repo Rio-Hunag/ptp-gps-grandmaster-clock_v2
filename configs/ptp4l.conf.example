@@ -1,0 +1,11 @@
+# Reference template; validate against the actual NIC, LinuxPTP version, and clock role.
+# Hardware timestamping can only be used if supported by the NIC/driver and successfully enabled.
+[global]
+twoStepFlag 1
+network_transport UDPv4
+time_stamping hardware
+domainNumber 0
+# Declared values such as clockClass and clockAccuracy must reflect the actual clock source status.
+
+[eth0]
+# Replace eth0 with the actual network interface name.
