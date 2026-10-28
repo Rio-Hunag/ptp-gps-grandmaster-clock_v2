@@ -1,0 +1,1 @@
+# The core log parser uses only the Python standard library; no additional packages are required to run the tests.
