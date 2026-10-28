@@ -1,0 +1,15 @@
+# Reference template. Verify against the actual hardware, gpsd/Chrony versions, and time sources before use.
+# Do not overwrite system configurations without first reviewing and validating the settings.
+#
+# The following example assumes gpsd provides NMEA data to a Chrony SHM source
+# and that the PPS device has been configured correctly.
+# The device index and offset must be calibrated according to the experiment.
+# refclock SHM 0 refid GPS precision 1e-1
+# refclock PPS /dev/pps0 refid PPS lock GPS
+#
+# If NTP service is required, allow access only from the subnets
+# needed for the experimental environment:
+# allow 192.168.1.0/24
+#
+# Do not claim GPS lock or verified time accuracy based solely on
+# the local stratum configuration.
