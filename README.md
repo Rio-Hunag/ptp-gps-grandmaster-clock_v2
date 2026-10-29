@@ -30,7 +30,7 @@
 
 ---
 
-## 🛰️ Project Overview
+##  Project Overview
 
 This project investigates GPS-assisted time synchronization using a Raspberry Pi, a GPS receiver, a pulse-per-second (PPS) signal, and LinuxPTP.
 
@@ -43,11 +43,11 @@ The repository provides system documentation, example configuration templates, a
 <table>
   <tr>
     <td width="50%" valign="top">
-      <h3>🛰️ GPS & PPS</h3>
+      <h3> GPS & PPS</h3>
       Understand the roles of GPS-derived time information and PPS timing signals in a Linux-based synchronization setup.
     </td>
     <td width="50%" valign="top">
-      <h3>⏱️ PTP Configuration</h3>
+      <h3> PTP Configuration</h3>
       Explore LinuxPTP configuration and the relationships among time sources, system clocks, and PTP devices.
     </td>
   </tr>
