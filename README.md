@@ -38,7 +38,7 @@ The main focus is understanding how time references, clock configuration, timest
 
 The repository provides system documentation, example configuration templates, and historical experimental notes. It is intended as an engineering reference rather than a turnkey system installer.
 
-## 🎯 Engineering Focus
+##  Engineering Focus
 
 <table>
   <tr>
@@ -53,7 +53,7 @@ The repository provides system documentation, example configuration templates, a
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <h3>🌐 Network Effects</h3>
+      <h3> Network Effects</h3>
       Investigate how network topology and queueing can affect PTP path delay and clock-offset observations.
     </td>
     <td width="50%" valign="top">
@@ -63,7 +63,7 @@ The repository provides system documentation, example configuration templates, a
   </tr>
 </table>
 
-## 🧭 System Architecture
+##  System Architecture
 
 The following diagram illustrates the conceptual relationship between GPS/PPS references, Linux clock configuration, and PTP distribution. The exact clock hierarchy and physical connections depend on the original experimental setup.
 
