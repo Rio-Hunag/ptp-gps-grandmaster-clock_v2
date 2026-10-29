@@ -1,131 +1,89 @@
-# GPS-Assisted PTP Precision Time Synchronization System
+<p align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=waving&color=0:141E30,50:243B55,100:3A6073&height=200&section=header&text=GPS-Assisted%20PTP&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Linux%20%7C%20Precision%20Time%20Synchronization&descAlignY=60&descSize=13"
+    width="100%"
+    alt="GPS-Assisted PTP Project Banner"
+  />
+</p>
 
-## Overview
+<p align="center">
+  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux"/>
+  <img src="https://img.shields.io/badge/Raspberry%20Pi-C51A4A?style=for-the-badge&logo=raspberrypi&logoColor=white" alt="Raspberry Pi"/>
+  <img src="https://img.shields.io/badge/LinuxPTP-243B55?style=for-the-badge" alt="LinuxPTP"/>
+  <img src="https://img.shields.io/badge/GPS%20%2F%20PPS-3A6073?style=for-the-badge" alt="GPS PPS"/>
+  <img src="https://img.shields.io/badge/Chrony-2C5364?style=for-the-badge" alt="Chrony"/>
+</p>
 
-This project explores precision time synchronization using a Raspberry Pi, a GPS receiver, a pulse-per-second (PPS) signal, and LinuxPTP.
+<h2 align="center">GPS-Assisted PTP Time Synchronization</h2>
 
-The project focuses on the relationship between GPS-based time references, Precision Time Protocol (PTP), network topology, and synchronization behavior. It also documents configuration considerations and historical observations from the original experimental work.
+<p align="center">
+  Exploring the relationship between GPS/PPS time references,
+  LinuxPTP configuration, network topology, and clock synchronization.
+</p>
 
-The repository currently provides project documentation and example configuration templates. It does not include a complete, executable log-analysis utility or a packaged set of experimental log files.
+<p align="center">
+  <a href="#-project-overview">Overview</a> ·
+  <a href="#-system-architecture">Architecture</a> ·
+  <a href="#-configuration-templates">Configuration</a> ·
+  <a href="#-historical-experimental-observations">Observations</a>
+</p>
 
-## Project Objectives
+---
 
-- Explore the use of GPS and PPS signals as time references for a Linux-based synchronization system.
-- Investigate the LinuxPTP Grandmaster workflow and PTP synchronization behavior.
-- Examine how network topology may affect PTP path delay and clock offset.
-- Document configuration considerations for Chrony, LinuxPTP, and system-clock synchronization.
-- Identify the experimental conditions and supporting evidence needed for reproducible measurements.
+## 🛰️ Project Overview
 
-## System Architecture
+This project investigates GPS-assisted time synchronization using a Raspberry Pi, a GPS receiver, a pulse-per-second (PPS) signal, and LinuxPTP.
 
-The following diagram illustrates the conceptual system architecture. The actual clock hierarchy, device connections, and service configuration should be verified against the original experimental setup.
+The main focus is understanding how time references, clock configuration, timestamping capabilities, and network topology influence Precision Time Protocol (PTP) behavior.
 
-```text
-GPS Receiver
-    |
-    +---- NMEA ----> GPS Service / Time Reference
-    |
-    +---- PPS -----> GPIO / PPS Device
-                         |
-                         v
-                  Linux Clock Setup
-                         |
-                         v
-                      LinuxPTP
-                       ptp4l
-                         |
-                         v
-                  Ethernet Network
-                         |
-                         v
-                     PTP Client
-```
+The repository provides system documentation, example configuration templates, and historical experimental notes. It is intended as an engineering reference rather than a turnkey system installer.
 
-The precise role of each component depends on the system configuration. GPS time acquisition, PPS handling, system-clock discipline, and PTP synchronization are related but distinct functions.
+## 🎯 Engineering Focus
 
-## Repository Structure
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🛰️ GPS & PPS</h3>
+      Understand the roles of GPS-derived time information and PPS timing signals in a Linux-based synchronization setup.
+    </td>
+    <td width="50%" valign="top">
+      <h3>⏱️ PTP Configuration</h3>
+      Explore LinuxPTP configuration and the relationships among time sources, system clocks, and PTP devices.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🌐 Network Effects</h3>
+      Investigate how network topology and queueing can affect PTP path delay and clock-offset observations.
+    </td>
+    <td width="50%" valign="top">
+      <h3>🔬 Reproducible Experiments</h3>
+      Identify the configurations, logs, and measurement conditions needed to compare synchronization behavior.
+    </td>
+  </tr>
+</table>
 
-```text
-ptp-gps-grandmaster-clock/
-├── README.md
-├── requirements.txt
-├── configs/
-│   ├── chrony.conf.example
-│   └── ptp4l.conf.example
-└── tests/
-    └── test_parse_ptp_logs.py
-```
+## 🧭 System Architecture
 
-This structure reflects the intended repository layout. The test file is listed as a repository artifact, but its execution and compatibility with the current implementation have not been verified as part of this documentation update.
+The following diagram illustrates the conceptual relationship between GPS/PPS references, Linux clock configuration, and PTP distribution. The exact clock hierarchy and physical connections depend on the original experimental setup.
 
-## Technologies
+```mermaid
+flowchart TD
+    GPS["GPS Receiver"]
 
-- **Raspberry Pi:** Hardware platform for the original synchronization project.
-- **GPS Receiver:** Provides satellite-derived time information.
-- **PPS Signal:** Provides a precise timing pulse for supported hardware and software configurations.
-- **LinuxPTP:** Provides PTP functionality, including the `ptp4l` service.
-- **Chrony:** Supports time-source management and system-clock synchronization where configured.
-- **Python:** Relevant to potential log-analysis and data-processing extensions.
+    GPS -->|NMEA Data| TIME["GPS Service / Time Reference"]
+    GPS -->|PPS Signal| PPS["PPS Device / GPIO"]
 
-## Experimental Design
+    TIME -. "Configured time source" .-> CLOCK["Clock Configuration"]
+    PPS -. "Configured PPS reference" .-> CLOCK
 
-Meaningful comparisons of PTP synchronization behavior require consistent measurement conditions and clearly documented configurations.
+    CLOCK -. "Depends on system setup" .-> PTP["LinuxPTP / ptp4l"]
+    PTP --> ETH["Ethernet / PTP Network"]
+    ETH --> CLIENT["PTP Client"]
 
-The following factors should be recorded when conducting experiments:
+    LOGS["System and ptp4l Logs"] --> ANALYSIS["Measurement Analysis"]
 
-1. **Network Topology:** Direct Ethernet connections, connections through a conventional network switch, and other tested configurations.
-2. **Timestamping Mode:** Software or hardware timestamping, including network-interface capabilities.
-3. **Time-Source Status:** GPS reception, PPS availability, and any interruptions to the reference signal.
-4. **Clock Configuration:** The roles and relationships of Chrony, `ptp4l`, and `phc2sys`, where applicable.
-5. **Measurement Conditions:** Experiment duration, sample count, discarded records, and relevant system logs.
-6. **Statistical Methodology:** Definitions of clock offset and path delay, together with the calculation methods used.
-
-These details are necessary to distinguish changes caused by network conditions from changes caused by clock configuration, timestamping behavior, or measurement methodology.
-
-## Historical Observations
-
-Notes from the original project recorded a PTP path-delay increase from **16,931 ns to 45,601 ns**. The increase was associated with queuing delay introduced by a network device that was not PTP-aware.
-
-The original project also recorded clock-offset values of approximately **±30 ns to ±100 ns** under the reported configuration.
-
-These figures are historical observations, not newly verified results from this repository update. Their interpretation depends on the original logs, experimental conditions, timestamping mode, clock configuration, and calculation methodology.
-
-Before presenting these values as independently verified experimental results, the original evidence should be reviewed and the measurements reproduced where possible. Without sufficient supporting evidence, they should be treated as historical project notes rather than guaranteed system performance.
-
-## Configuration Notes
-
-The files under `configs/` are example templates. They are not universal configurations and should not be applied directly without review.
-
-Before using or adapting them, verify:
-
-- GPS and PPS device paths and the required drivers.
-- Network-interface names and hardware timestamping support.
-- Clock relationships and operating roles among Chrony, `ptp4l`, and `phc2sys`.
-- Network settings, access controls, and firewall rules.
-- Whether PTP configuration values accurately reflect the actual time-source status.
-- Compatibility with the installed LinuxPTP and Chrony versions.
-
-Back up existing configuration files before making changes. Avoid running multiple clock-disciplining services without understanding their interactions and the intended clock hierarchy.
-
-## Limitations
-
-- This repository documents the synchronization project and provides example configuration templates; it does not automatically configure the complete system.
-- The current repository documentation does not establish that a standalone log-analysis utility is available.
-- Historical observations have not been independently revalidated as part of this documentation update.
-- Actual synchronization performance depends on hardware capabilities, clock sources, network conditions, timestamping mode, and configuration.
-- The conceptual architecture may differ from the final physical implementation and should be checked against the original setup.
-
-## Future Improvements
-
-- Add a reproducible log-analysis utility with documented input formats and statistical calculations.
-- Add unit tests and representative log samples to validate parsing behavior.
-- Record the original experimental logs and configuration versions where available.
-- Compare direct Ethernet connections with different network-device configurations under controlled conditions.
-- Add plots of clock-offset and path-delay trends using verified measurement data.
-- Document experiment procedures, software versions, and hardware configurations to improve reproducibility.
-
-## Conclusion
-
-This project investigates GPS-assisted time synchronization and the behavior of PTP in a Linux-based environment. Its main technical focus is the interaction between time references, clock configuration, timestamping, and network path delay.
-
-Further validation and reproducible experimental evidence are needed to establish the reported synchronization performance and support quantitative comparisons across network configurations.
+    style GPS fill:#243B55,color:#ffffff,stroke:#3A6073
+    style PTP fill:#176B67,color:#ffffff,stroke:#2D9C91
+    style CLIENT fill:#3A6073,color:#ffffff,stroke:#141E30
+    style ANALYSIS fill:#243B55,color:#ffffff,stroke:#3A6073
