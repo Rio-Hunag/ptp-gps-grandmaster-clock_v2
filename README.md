@@ -57,7 +57,7 @@ The repository provides system documentation, example configuration templates, a
       Investigate how network topology and queueing can affect PTP path delay and clock-offset observations.
     </td>
     <td width="50%" valign="top">
-      <h3>🔬 Reproducible Experiments</h3>
+      <h3> Reproducible Experiments</h3>
       Identify the configurations, logs, and measurement conditions needed to compare synchronization behavior.
     </td>
   </tr>
